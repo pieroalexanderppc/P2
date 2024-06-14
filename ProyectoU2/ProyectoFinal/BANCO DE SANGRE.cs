@@ -25,11 +25,12 @@ namespace Proyecto_Final_Blood_Bank
 			Application.Exit();
 		}
 
+        private string connectionString = "Data Source=localhost;Initial Catalog=Hospital;Integrated Security=True";
 
-
-		private void CargarGrilla()
+        private void CargarGrilla()
+{
+		using (SqlConnection con = new SqlConnection(connectionString))
 		{
-			SqlConnection con = new SqlConnection("Data Source=localhost;Initial Catalog=Hospital;Integrated Security=True");
 			string consulta = "Select * from BancoDeSangre";
 			SqlDataAdapter adaptador = new SqlDataAdapter(consulta, con);
 			DataTable dt = new DataTable();
@@ -38,13 +39,14 @@ namespace Proyecto_Final_Blood_Bank
 			dgvBancoSangre.Columns[0].Width = 45;
 			dgvBancoSangre.Columns[1].Width = 45;
 			dgvBancoSangre.Columns[2].Width = 45;
-
 		}
+	}
 
-		private void CargarGrilla2()
+	private void CargarGrilla2()
+{
+		using (SqlConnection con = new SqlConnection(connectionString))
 		{
-			SqlConnection con = new SqlConnection("Data Source=localhost;Initial Catalog=Hospital;Integrated Security=True");
-			string consulta = "select dni, nombre, apellido, tipo,rh from PACIENTES";
+			string consulta = "select dni, nombre, apellido, tipo, rh from PACIENTES";
 			SqlDataAdapter adaptador = new SqlDataAdapter(consulta, con);
 			DataTable dt = new DataTable();
 			adaptador.Fill(dt);
@@ -52,6 +54,8 @@ namespace Proyecto_Final_Blood_Bank
 			dgvPacientes.Columns[3].Width = 45;
 			dgvPacientes.Columns[4].Width = 45;
 		}
+	}
+
 
 
 
