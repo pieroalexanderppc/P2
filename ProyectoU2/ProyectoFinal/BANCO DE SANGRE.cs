@@ -18,9 +18,13 @@ namespace Proyecto_Final_Blood_Bank
 			InitializeComponent();
 			lblVolver.MouseEnter += OnMouseEnter;
 			lblVolver.MouseLeave += OnMouseLeave;
-			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form_FormClosed);
+            Cambio1 = new Font("Nirmala UI", 12F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
+            Cambio2 = new Font("Nirmala UI", 9.75F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form_FormClosed);
 		}
-		private void Form_FormClosed(object sender, FormClosedEventArgs e)
+        private Font Cambio1;
+        private Font Cambio2;
+        private void Form_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			Application.Exit();
 		}
@@ -102,13 +106,14 @@ namespace Proyecto_Final_Blood_Bank
 		}
 		private void OnMouseEnter(object sender, EventArgs e)
 		{
-			lblVolver.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, 0);
-		}
+			lblVolver.Font = Cambio1;
+        }
 
 		private void OnMouseLeave(object sender, EventArgs e)
 		{
-			lblVolver.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, 0);
-		}
+			lblVolver.Font = Cambio2;
+
+        }
 
 		private void button1_Click(object sender, EventArgs e)
 		{
