@@ -67,77 +67,72 @@ namespace Proyecto_Final_Blood_Bank
 
         private void btnregistrar_Click(object sender, EventArgs e)
         {
-            string login;
             try
             {
-                login = "SELECT * FROM Pacientes WHERE dni = '" + int.Parse(txtDni.Text) + "'";
-                int numero = int.Parse(txtTelefono.Text);
-                SqlConnection con1 = new SqlConnection("Data Source=localhost;Initial Catalog=Hospital;Integrated Security=True");
+                string dni = txtDni.Text.Trim();
+                string nombre = txtNombre.Text.Trim();
+                string apellido = txtApellido.Text.Trim();
+                string direccion = txtDireccion.Text.Trim();
+                string telefono = txtTelefono.Text.Trim();
+                string tipoSangre = cmbTipoDeSangre.Text.Trim();
+                string rh = cmbRH.Text.Trim();
 
-                con1.Open();
-                SqlCommand cmd1 = new SqlCommand(login, con1);
-                cmd1.ExecuteNonQuery();
-                SqlDataReader reader = cmd1.ExecuteReader();
-
-                if (reader.Read() || txtDni.Text.Length != 8)
+                // Validación de longitud de DNI
+                if (dni.Length != 8)
                 {
-                    MessageBox.Show("Error al registar paciente", "Banco de Sangre", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("El DNI debe tener 8 dígitos.", "Banco de Sangre", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
-                else
+
+                // Consulta para verificar si el paciente ya existe
+                string selectQuery = "SELECT COUNT(*) FROM Pacientes WHERE dni = @dni";
+
+                using (SqlConnection con1 = new SqlConnection("Data Source=localhost;Initial Catalog=Hospital;Integrated Security=True"))
                 {
-                    SqlConnection con = new SqlConnection("Data Source=localhost;Initial Catalog=Hospital;Integrated Security=True");
-                    try
+                    con1.Open();
+                    using (SqlCommand cmdSelect = new SqlCommand(selectQuery, con1))
                     {
-                        //restriccion para llenar los campos
-                        if (txtDni.Text != null && txtNombre.Text != null && txtApellido.Text != null && txtDireccion.Text != null && txtTelefono.Text != null &&
-                            cmbTipoDeSangre.SelectedIndex != -1 && cmbRH.SelectedIndex != -1)
+                        cmdSelect.Parameters.AddWithValue("@dni", dni);
+                        int count = (int)cmdSelect.ExecuteScalar();
+
+                        if (count > 0)
                         {
-
-
-
-                            con.Open();
-                            string consulta = "insert into PACIENTES values(" + txtDni.Text + ",'" +
-                                txtNombre.Text + "','" + txtApellido.Text + "','" + txtDireccion.Text + "','" + txtTelefono.Text + "','" + cmbTipoDeSangre.Text + "','" + cmbRH.Text + "')";
-                            SqlCommand comando = new SqlCommand(consulta, con);
-                            comando.ExecuteNonQuery();
-
-                            MessageBox.Show("Registros alterados con exito.", "Banco de Sangre",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                            con.Close();
+                            MessageBox.Show("El paciente ya está registrado.", "Banco de Sangre", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
                         }
-                        else
-                        {
-                            MessageBox.Show("Completar los todos los campos.", "Banco de Sangre",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-
-                        CargarGrilla();
                     }
-
-
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message + ex.StackTrace);
-                    }
-                    finally
-                    {
-                        if (con.State == ConnectionState.Open)
-                            con.Close();
-                    }
-                    Limpiar();
                 }
+
+                // Inserción de nuevo paciente
+                string insertQuery = "INSERT INTO Pacientes (dni, nombre, apellido, direccion, telefono, tipo, rh) " +
+                                     "VALUES (@dni, @nombre, @apellido, @direccion, @telefono, @tipo, @rh)";
+
+                using (SqlConnection con = new SqlConnection("Data Source=localhost;Initial Catalog=Hospital;Integrated Security=True"))
+                {
+                    con.Open();
+                    using (SqlCommand cmdInsert = new SqlCommand(insertQuery, con))
+                    {
+                        cmdInsert.Parameters.AddWithValue("@dni", dni);
+                        cmdInsert.Parameters.AddWithValue("@nombre", nombre);
+                        cmdInsert.Parameters.AddWithValue("@apellido", apellido);
+                        cmdInsert.Parameters.AddWithValue("@direccion", direccion);
+                        cmdInsert.Parameters.AddWithValue("@telefono", telefono);
+                        cmdInsert.Parameters.AddWithValue("@tipo", tipoSangre);
+                        cmdInsert.Parameters.AddWithValue("@rh", rh);
+
+                        cmdInsert.ExecuteNonQuery();
+
+                        MessageBox.Show("Registro realizado con éxito.", "Banco de Sangre", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+
+                Limpiar();
+                CargarGrilla();
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Datos incorrectos", "Banco de Sangre", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                MessageBox.Show("Error: " + ex.Message, "Banco de Sangre", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
-
-
-
         }
 
 

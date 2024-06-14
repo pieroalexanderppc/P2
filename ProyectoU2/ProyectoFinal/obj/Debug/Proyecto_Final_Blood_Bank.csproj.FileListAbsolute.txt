@@ -232,3 +232,22 @@ D:\UPT Sistemas 5°\Programacion II\PROYECTO\Proyecto Grupal III Unidad - The Bl
 D:\UPT Sistemas 5°\Programacion II\PROYECTO\Proyecto Grupal III Unidad - The Blood Bank - Grupo A\ProyectoFinal\obj\Debug\Proyecto_Final_Blood_Bank.csproj.CoreCompileInputs.cache
 D:\UPT Sistemas 5°\Programacion II\PROYECTO\Proyecto Grupal III Unidad - The Blood Bank - Grupo A\ProyectoFinal\obj\Debug\Proyecto_Final_Blood_Bank.exe
 D:\UPT Sistemas 5°\Programacion II\PROYECTO\Proyecto Grupal III Unidad - The Blood Bank - Grupo A\ProyectoFinal\obj\Debug\Proyecto_Final_Blood_Bank.pdb
+C:\Users\Usuario\Documents\CALIDADYPRUEBADESOFTWARE\PROYECTOCPS\ProyectoU2\ProyectoFinal\bin\Debug\Proyecto_Final_Blood_Bank.exe.config
+C:\Users\Usuario\Documents\CALIDADYPRUEBADESOFTWARE\PROYECTOCPS\ProyectoU2\ProyectoFinal\bin\Debug\Proyecto_Final_Blood_Bank.exe
+C:\Users\Usuario\Documents\CALIDADYPRUEBADESOFTWARE\PROYECTOCPS\ProyectoU2\ProyectoFinal\bin\Debug\Proyecto_Final_Blood_Bank.pdb
+C:\Users\Usuario\Documents\CALIDADYPRUEBADESOFTWARE\PROYECTOCPS\ProyectoU2\ProyectoFinal\obj\Debug\Proyecto_Final_Blood_Bank.csproj.AssemblyReference.cache
+C:\Users\Usuario\Documents\CALIDADYPRUEBADESOFTWARE\PROYECTOCPS\ProyectoU2\ProyectoFinal\obj\Debug\Proyecto_Final_Blood_Bank.BANCO_DE_SANGRE.resources
+C:\Users\Usuario\Documents\CALIDADYPRUEBADESOFTWARE\PROYECTOCPS\ProyectoU2\ProyectoFinal\obj\Debug\Proyecto_Final_Blood_Bank.INFORME.resources
+C:\Users\Usuario\Documents\CALIDADYPRUEBADESOFTWARE\PROYECTOCPS\ProyectoU2\ProyectoFinal\obj\Debug\Proyecto_Final_Blood_Bank.LOGIN.resources
+C:\Users\Usuario\Documents\CALIDADYPRUEBADESOFTWARE\PROYECTOCPS\ProyectoU2\ProyectoFinal\obj\Debug\Proyecto_Final_Blood_Bank.OPCIONES_1.resources
+C:\Users\Usuario\Documents\CALIDADYPRUEBADESOFTWARE\PROYECTOCPS\ProyectoU2\ProyectoFinal\obj\Debug\Proyecto_Final_Blood_Bank.PERSONAL.resources
+C:\Users\Usuario\Documents\CALIDADYPRUEBADESOFTWARE\PROYECTOCPS\ProyectoU2\ProyectoFinal\obj\Debug\Proyecto_Final_Blood_Bank.REGISTRARSE.resources
+C:\Users\Usuario\Documents\CALIDADYPRUEBADESOFTWARE\PROYECTOCPS\ProyectoU2\ProyectoFinal\obj\Debug\Proyecto_Final_Blood_Bank.RegistroDonantes.resources
+C:\Users\Usuario\Documents\CALIDADYPRUEBADESOFTWARE\PROYECTOCPS\ProyectoU2\ProyectoFinal\obj\Debug\Proyecto_Final_Blood_Bank.REGISTRO_PACIENTE.resources
+C:\Users\Usuario\Documents\CALIDADYPRUEBADESOFTWARE\PROYECTOCPS\ProyectoU2\ProyectoFinal\obj\Debug\Proyecto_Final_Blood_Bank.OPCIONES_2.resources
+C:\Users\Usuario\Documents\CALIDADYPRUEBADESOFTWARE\PROYECTOCPS\ProyectoU2\ProyectoFinal\obj\Debug\Proyecto_Final_Blood_Bank.OPCIONES.resources
+C:\Users\Usuario\Documents\CALIDADYPRUEBADESOFTWARE\PROYECTOCPS\ProyectoU2\ProyectoFinal\obj\Debug\Proyecto_Final_Blood_Bank.Properties.Resources.resources
+C:\Users\Usuario\Documents\CALIDADYPRUEBADESOFTWARE\PROYECTOCPS\ProyectoU2\ProyectoFinal\obj\Debug\Proyecto_Final_Blood_Bank.csproj.GenerateResource.cache
+C:\Users\Usuario\Documents\CALIDADYPRUEBADESOFTWARE\PROYECTOCPS\ProyectoU2\ProyectoFinal\obj\Debug\Proyecto_Final_Blood_Bank.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Documents\CALIDADYPRUEBADESOFTWARE\PROYECTOCPS\ProyectoU2\ProyectoFinal\obj\Debug\Proyecto_Final_Blood_Bank.exe
+C:\Users\Usuario\Documents\CALIDADYPRUEBADESOFTWARE\PROYECTOCPS\ProyectoU2\ProyectoFinal\obj\Debug\Proyecto_Final_Blood_Bank.pdb
