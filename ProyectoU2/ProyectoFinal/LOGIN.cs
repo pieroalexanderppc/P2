@@ -15,12 +15,20 @@ namespace Proyecto_Final_Blood_Bank
 	public partial class LOGIN : Form
 	{
 
-		static void DBL_INT_ADD(ref uint a, ref uint b, uint c)
-		{
-			if (a > 0xffffffff - c) ++b; a += c;
-		}
+        static void DBL_INT_ADD(ref uint a, ref uint b, uint c)
+        {
+            // Check if adding 'c' to 'a' would cause overflow
+            if (a > 0xffffffff - c)
+            {
+                // If overflow would occur, increment 'b'
+                ++b;
+            }
 
-		static uint ROTRIGHT(uint a, byte b)
+            // Always add 'c' to 'a'
+            a += c;
+        }
+
+        static uint ROTRIGHT(uint a, byte b)
 		{
 			return (((a) >> (b)) | ((a) << (32 - (b))));
 		}
@@ -328,13 +336,11 @@ namespace Proyecto_Final_Blood_Bank
 		{
 			if (chbShow.Checked)
 			{
-				txtPassword.PasswordChar = '\0';
-				//Confirm.PasswordChar = '\0';
+				txtPassword.PasswordChar = '\0';		
 			}
 			else
 			{
 				txtPassword.PasswordChar = '•';
-				//Confirm.PasswordChar = '•';
 			}
 		}
 

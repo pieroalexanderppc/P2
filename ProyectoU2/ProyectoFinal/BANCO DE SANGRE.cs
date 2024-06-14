@@ -203,15 +203,12 @@ namespace Proyecto_Final_Blood_Bank
 
 		}
 
-		private void dgvBancoSangre_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-		{
-			if (e.ColumnIndex == 2)
-			{
-				if (Convert.ToDouble(e.Value) <= 10)
-				{
-					e.CellStyle.ForeColor = Color.Red;
-				}
-			}
-		}
-	}
+        private void dgvBancoSangre_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == 2 && Convert.ToDouble(e.Value) <= 10)
+            {
+                e.CellStyle.ForeColor = Color.Red;
+            }
+        }
+    }
 }
