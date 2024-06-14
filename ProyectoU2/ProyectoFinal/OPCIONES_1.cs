@@ -17,12 +17,12 @@ namespace Proyecto_Final_Blood_Bank
             InitializeComponent();
             LogOut.MouseEnter += OnMouseEnter;
             LogOut.MouseLeave += OnMouseLeave;
-            boldUnderlineFontLarge = new Font("Nirmala UI", 12F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
-            boldUnderlineFontNormal = new Font("Nirmala UI", 9.75F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
+            Fuente1 = new Font("Nirmala UI", 12F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
+            Fuente2 = new Font("Nirmala UI", 9.75F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form_FormClosed);
         }
-        private Font boldUnderlineFontLarge;
-        private Font boldUnderlineFontNormal;
+        private Font Fuente1;
+        private Font Fuente2;
         private void Form_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
@@ -56,12 +56,12 @@ namespace Proyecto_Final_Blood_Bank
 
         private void OnMouseEnter(object sender, EventArgs e)
         {
-            LogOut.Font = boldUnderlineFontLarge;
+            LogOut.Font = Fuente1;
         }
 
         private void OnMouseLeave(object sender, EventArgs e)
         {
-            LogOut.Font = boldUnderlineFontNormal;
+            LogOut.Font = Fuente2;
         }
 
         private Size formOriginalSize;
