@@ -14,8 +14,12 @@ namespace Proyecto_Final_Blood_Bank
 	{
 		static void DBL_INT_ADD(ref uint a, ref uint b, uint c)
 		{
-			if (a > 0xffffffff - c) ++b; a += c;
-		}
+            if (a > 0xffffffff - c)
+            {
+                ++b;
+                a += c;
+            }
+        }
 
 		static uint ROTRIGHT(uint a, byte b)
 		{
