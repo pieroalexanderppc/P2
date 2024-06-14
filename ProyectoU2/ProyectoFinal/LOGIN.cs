@@ -245,9 +245,9 @@ namespace Proyecto_Final_Blood_Bank
 
 
 
-		public static string NombreUsuario;
+        private static string NombreUsuario;
 
-		public bool Revision(string str)
+        public bool Revision(string str)
 		{
 			return Regex.IsMatch(str, @"^[a-zA-Z0-9]+$");
 		}
