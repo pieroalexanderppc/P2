@@ -154,94 +154,110 @@ namespace Proyecto_Final_Blood_Bank
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            string login;
             try
             {
-                login = "SELECT * FROM Donantes WHERE dni = @dni";
-                SqlConnection con1 = new SqlConnection("Data Source=localhost;Initial Catalog=Hospital;Integrated Security=True");
-
-                con1.Open();
-                SqlCommand cmd1 = new SqlCommand(login, con1);
-                cmd1.Parameters.AddWithValue("@dni", int.Parse(txtDni.Text));
-                SqlDataReader reader = cmd1.ExecuteReader();
-
-                if (reader.Read() || txtDni.Text.Length != 8)
+                if (IsDniInvalid())
                 {
-                    MessageBox.Show("Error al registrar paciente", "Banco de Sangre", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ShowErrorMessage("Error al registrar paciente");
+                    return;
+                }
+
+                if (AreFieldsValid())
+                {
+                    RegisterDonor();
+                    UpdateBloodBank();
+                    ShowSuccessMessage("Registros alterados con éxito.");
+                    CargarGrilla();
+                    Limpiar();
                 }
                 else
                 {
-                    SqlConnection con = new SqlConnection("Data Source=localhost;Initial Catalog=Hospital;Integrated Security=True");
-                    try
-                    {
-                        // Restricción para llenar los campos
-                        if (!string.IsNullOrEmpty(txtDni.Text) &&
-                            !string.IsNullOrEmpty(txtNombre.Text) &&
-                            !string.IsNullOrEmpty(txtApellido.Text) &&
-                            cmbTipoDeSangre.SelectedIndex != -1 &&
-                            cmbRH.SelectedIndex != -1 &&
-                            !rbSi.Checked &&
-                            rbNo.Checked)
-                        {
-                            con.Open();
-                            string consulta = "INSERT INTO DONANTES (dni, nombre, apellido, tipoSangre, rh, litros) VALUES (@dni, @nombre, @apellido, @tipoSangre, @rh, @litros)";
-                            SqlCommand comando = new SqlCommand(consulta, con);
-                            comando.Parameters.AddWithValue("@dni", txtDni.Text);
-                            comando.Parameters.AddWithValue("@nombre", txtNombre.Text);
-                            comando.Parameters.AddWithValue("@apellido", txtApellido.Text);
-                            comando.Parameters.AddWithValue("@tipoSangre", cmbTipoDeSangre.Text);
-                            comando.Parameters.AddWithValue("@rh", cmbRH.Text);
-                            comando.Parameters.AddWithValue("@litros", txtLitros.Text);
-                            comando.ExecuteNonQuery();
-
-                            MessageBox.Show("Registros alterados con éxito.", "Banco de Sangre", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                            string temporal = cmbTipoDeSangre.Text + cmbRH.Text;
-                            double temporal2 = Convert.ToDouble(txtLitros.Text);
-
-                            SqlConnection con2 = new SqlConnection("Data Source=localhost;Initial Catalog=Hospital;Integrated Security=True");
-                            string cmd = "UPDATE BancoDeSangre SET Litros = (SELECT Litros FROM BancoDeSangre WHERE Tipo = @tipoSangre AND Rh = @rh) + @litros WHERE Tipo = @tipoSangre AND Rh = @rh";
-                            SqlCommand ejecucion = new SqlCommand(cmd, con2);
-                            ejecucion.Parameters.AddWithValue("@tipoSangre", cmbTipoDeSangre.Text);
-                            ejecucion.Parameters.AddWithValue("@rh", cmbRH.Text);
-                            ejecucion.Parameters.AddWithValue("@litros", 0.5);  // Asumiendo que txtLitros.Text es 0.5
-                            con2.Open();
-                            ejecucion.ExecuteNonQuery();
-                            con2.Close();
-
-                            con.Close();
-                        }
-                        else
-                        {
-                            if (rbSi.Checked)
-                            {
-                                MessageBox.Show("No se puede donar sangre de pacientes que padecen una condición.", "Banco de Sangre", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            else
-                            {
-                                MessageBox.Show("Completar todos los campos.", "Banco de Sangre", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                        }
-
-                        CargarGrilla();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message + ex.StackTrace);
-                    }
-                    finally
-                    {
-                        if (con.State == ConnectionState.Open)
-                            con.Close();
-                    }
-                    Limpiar();
+                    ShowValidationMessage();
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Datos incorrectos", "Banco de Sangre", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowErrorMessage("Datos incorrectos: " + ex.Message);
             }
         }
+
+        private bool IsDniInvalid()
+        {
+            string query = "SELECT * FROM Donantes WHERE dni = @dni";
+            using (SqlConnection con = new SqlConnection("Data Source=localhost;Initial Catalog=Hospital;Integrated Security=True"))
+            {
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@dni", int.Parse(txtDni.Text));
+                con.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                return reader.Read() || txtDni.Text.Length != 8;
+            }
+        }
+
+        private bool AreFieldsValid()
+        {
+            return !string.IsNullOrEmpty(txtDni.Text) &&
+                   !string.IsNullOrEmpty(txtNombre.Text) &&
+                   !string.IsNullOrEmpty(txtApellido.Text) &&
+                   cmbTipoDeSangre.SelectedIndex != -1 &&
+                   cmbRH.SelectedIndex != -1 &&
+                   !rbSi.Checked &&
+                   rbNo.Checked;
+        }
+
+        private void RegisterDonor()
+        {
+            string query = "INSERT INTO DONANTES (dni, nombre, apellido, tipoSangre, rh, litros) VALUES (@dni, @nombre, @apellido, @tipoSangre, @rh, @litros)";
+            using (SqlConnection con = new SqlConnection("Data Source=localhost;Initial Catalog=Hospital;Integrated Security=True"))
+            {
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@dni", txtDni.Text);
+                cmd.Parameters.AddWithValue("@nombre", txtNombre.Text);
+                cmd.Parameters.AddWithValue("@apellido", txtApellido.Text);
+                cmd.Parameters.AddWithValue("@tipoSangre", cmbTipoDeSangre.Text);
+                cmd.Parameters.AddWithValue("@rh", cmbRH.Text);
+                cmd.Parameters.AddWithValue("@litros", txtLitros.Text);
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        private void UpdateBloodBank()
+        {
+            string query = "UPDATE BancoDeSangre SET Litros = (SELECT Litros FROM BancoDeSangre WHERE Tipo = @tipoSangre AND Rh = @rh) + @litros WHERE Tipo = @tipoSangre AND Rh = @rh";
+            using (SqlConnection con = new SqlConnection("Data Source=localhost;Initial Catalog=Hospital;Integrated Security=True"))
+            {
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@tipoSangre", cmbTipoDeSangre.Text);
+                cmd.Parameters.AddWithValue("@rh", cmbRH.Text);
+                cmd.Parameters.AddWithValue("@litros", 0.5); // Assuming that txtLitros.Text is 0.5
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        private void ShowErrorMessage(string message)
+        {
+            MessageBox.Show(message, "Banco de Sangre", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void ShowSuccessMessage(string message)
+        {
+            MessageBox.Show(message, "Banco de Sangre", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void ShowValidationMessage()
+        {
+            if (rbSi.Checked)
+            {
+                ShowErrorMessage("No se puede donar sangre de pacientes que padecen una condición.");
+            }
+            else
+            {
+                ShowErrorMessage("Completar todos los campos.");
+            }
+        }
+
         private Rectangle ReclblVolver;
         private Rectangle ReclblTitulo;
         private Rectangle ReclblUsuario;
