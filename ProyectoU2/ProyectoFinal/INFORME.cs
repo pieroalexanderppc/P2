@@ -23,7 +23,7 @@ namespace Proyecto_Final_Blood_Bank
         {
             Application.Exit();
         }
-
+        public const string ConnectionString = "Data Source=localhost;Initial Catalog=Hospital;Integrated Security=True";
         private void INFORME_Load(object sender, EventArgs e)
         {
             lblUsuario.Text = LOGIN.NombreUsuario;
@@ -37,7 +37,7 @@ namespace Proyecto_Final_Blood_Bank
 
 
 
-            SqlConnection con = new SqlConnection("Data Source=localhost;Initial Catalog=Hospital;Integrated Security=True");
+            SqlConnection con = new SqlConnection(ConnectionString);
             con.Open();
             string comando = "Select * from BancoDeSangre";
 
@@ -56,8 +56,8 @@ namespace Proyecto_Final_Blood_Bank
             }
             con.Close();
 
-            SqlConnection con2 = new SqlConnection("Data Source=localhost;Initial Catalog=Hospital;Integrated Security=True");
-            SqlConnection con3 = new SqlConnection("Data Source=localhost;Initial Catalog=Hospital;Integrated Security=True");
+            SqlConnection con2 = new SqlConnection(ConnectionString);
+            SqlConnection con3 = new SqlConnection(ConnectionString);
             con2.Open();
             con3.Open();
             string comando2 = "Select * from Pacientes";
@@ -105,7 +105,7 @@ namespace Proyecto_Final_Blood_Bank
                 string temp_usuario = lblUsuario.Text;
                 string comando = "SELECT estado FROM Personal WHERE Usuario = @usuario";
 
-                using (SqlConnection con = new SqlConnection("Data Source=localhost;Initial Catalog=Hospital;Integrated Security=True"))
+                using (SqlConnection con = new SqlConnection(ConnectionString))
                 {
                     con.Open();
 
